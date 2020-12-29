@@ -8,16 +8,16 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pivotal.config.Environment;
-import pivotal.ui.DashboardPage;
+import pivotal.ui.HomePage;
 import pivotal.ui.InitialPage;
-import pivotal.ui.LoginPage;
-import pivotal.ui.LoginPage2;
+import pivotal.ui.LoginStep1Page;
+import pivotal.ui.LoginStep2Page;
 
 public class LoginTest {
     private InitialPage initialPage;
-    private LoginPage loginPage;
-    private LoginPage2 loginPage2;
-    private DashboardPage dashboardPage;
+    private LoginStep1Page loginStep1Page;
+    private LoginStep2Page loginStep2Page;
+    private HomePage homePage;
 
     private WebDriverManager webDriverManager;
     private String email = Environment.getInstance().getEmail();
@@ -38,10 +38,10 @@ public class LoginTest {
     @Test
     public void login() {
         initialPage = new InitialPage(webDriverManager.getWebDriver(), webDriverManager.getDriverWait());
-        loginPage = initialPage.navigateLogin();
-        loginPage2 = loginPage.navigateLoginNext(email);
-        dashboardPage = loginPage2.login(password);
-        WebElement actual = dashboardPage.getProfileDropDown();
+        loginStep1Page = initialPage.navigateLogin();
+        loginStep2Page = loginStep1Page.navigateLoginNext(email);
+        homePage = loginStep2Page.login(password);
+        WebElement actual = homePage.getProfileDropDown();
         WebElement expected = webDriverManager.getWebDriver().findElement(By.xpath("//button[contains(text(),'cs528074')]"));
         Assert.assertEquals(actual, expected);
     }

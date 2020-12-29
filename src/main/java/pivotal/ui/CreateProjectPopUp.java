@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class CreateProjectPage extends BasePage {
+public class CreateProjectPopUp extends BasePage {
 
     @FindBy(name = "project_name")
     private WebElement projectNameTextBox;
@@ -19,7 +19,7 @@ public class CreateProjectPage extends BasePage {
     @FindBy(css = ".pvXpn__Button--positive")
     private WebElement createProjectBtn;
 
-    public CreateProjectPage(final WebDriver webDriver, final WebDriverWait webDriverWait) {
+    public CreateProjectPopUp(final WebDriver webDriver, final WebDriverWait webDriverWait) {
         super(webDriver, webDriverWait);
     }
 

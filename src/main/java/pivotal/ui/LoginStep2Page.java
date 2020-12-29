@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginPage2 extends BasePage {
+public class LoginStep2Page extends BasePage {
 
     @FindBy(id = "credentials_password")
     private WebElement passwordTextBox;
@@ -13,14 +13,14 @@ public class LoginPage2 extends BasePage {
     @FindBy(css = "input.app_signin_action_button")
     private WebElement signInBtn;
 
-    public LoginPage2(final WebDriver webDriver, final WebDriverWait webDriverWait) {
+    public LoginStep2Page(final WebDriver webDriver, final WebDriverWait webDriverWait) {
         super(webDriver, webDriverWait);
     }
 
-    public DashboardPage login (final String password) {
+    public HomePage login (final String password) {
         passwordTextBox.clear();
         passwordTextBox.sendKeys(password);
         signInBtn.click();
-        return new DashboardPage(webDriver, webDriverWait);
+        return new HomePage(webDriver, webDriverWait);
     }
 }

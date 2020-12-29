@@ -13,8 +13,8 @@ public class InitialPage extends BasePage {
         super(webDriver, webDriverWait);
     }
     
-    public LoginPage navigateLogin() {
+    public LoginStep1Page navigateLogin() {
         loginBtn.click();
-        return new LoginPage(webDriver, webDriverWait);
+        return new LoginStep1Page(webDriver, webDriverWait);
     }
 }

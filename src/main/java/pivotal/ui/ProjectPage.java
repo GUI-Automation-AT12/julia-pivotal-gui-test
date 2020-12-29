@@ -13,8 +13,8 @@ public class ProjectPage extends BasePage {
         super(webDriver, webDriverWait);
     }
 
-    public DashboardPage goDashboard() {
+    public HomePage goDashboard() {
         headerLogoImage.click();
-        return new DashboardPage(webDriver, webDriverWait);
+        return new HomePage(webDriver, webDriverWait);
     }
 }

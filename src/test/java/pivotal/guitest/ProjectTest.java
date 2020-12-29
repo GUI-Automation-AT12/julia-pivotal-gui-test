@@ -14,11 +14,11 @@ import static org.junit.Assert.*;
 public class ProjectTest {
 
     private InitialPage initialPage;
-    private LoginPage loginPage;
-    private LoginPage2 loginPage2;
-    private DashboardPage dashboardPage;
+    private LoginStep1Page loginStep1Page;
+    private LoginStep2Page loginStep2Page;
+    private HomePage homePage;
 
-    private CreateProjectPage createProjectPage;
+    private CreateProjectPopUp createProjectPopUp;
     private ProjectPage projectPage;
 
     private WebDriverManager webDriverManager;
@@ -38,7 +38,7 @@ public class ProjectTest {
     @After
     public void tearDown() throws Exception {
         if(nameProject.equals(actual)) {
-            DeleteProjectPage deleteProject = dashboardPage.goDeleteProjectPage();
+            DeleteProjectPage deleteProject = homePage.goDeleteProjectPage();
             deleteProject.deleteProject();
         }
         webDriverManager.getWebDriver().quit();
@@ -47,14 +47,14 @@ public class ProjectTest {
     @Test
     public void createProject() {
         initialPage = new InitialPage(webDriverManager.getWebDriver(), webDriverManager.getDriverWait());
-        loginPage = initialPage.navigateLogin();
-        loginPage2 = loginPage.navigateLoginNext(email);
-        dashboardPage = loginPage2.login(password);
+        loginStep1Page = initialPage.navigateLogin();
+        loginStep2Page = loginStep1Page.navigateLoginNext(email);
+        homePage = loginStep2Page.login(password);
 
-        createProjectPage = dashboardPage.createProject();
-        projectPage = createProjectPage.createProject(nameProject);
+        createProjectPopUp = homePage.createProject();
+        projectPage = createProjectPopUp.createProject(nameProject);
         actual = webDriverManager.getWebDriver().findElement(By.cssSelector(".raw_context_name")).getText();
         assertEquals(nameProject, actual);
-        dashboardPage = projectPage.goDashboard();
+        homePage = projectPage.goDashboard();
     }
 }

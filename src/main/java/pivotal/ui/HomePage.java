@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class DashboardPage extends BasePage {
+public class HomePage extends BasePage {
 
     @FindBy(id = "create-project-button")
     private WebElement createProjectBtn;
@@ -25,13 +25,13 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "//div[@class='projects column'][1]/a")
     private WebElement projectNameLabel;
 
-    public DashboardPage(final WebDriver webDriver, final WebDriverWait webDriverWait) {
+    public HomePage(final WebDriver webDriver, final WebDriverWait webDriverWait) {
         super(webDriver, webDriverWait);
     }
 
-    public CreateProjectPage createProject() {
+    public CreateProjectPopUp createProject() {
         createProjectBtn.click();
-        return  new CreateProjectPage(webDriver, webDriverWait);
+        return  new CreateProjectPopUp(webDriver, webDriverWait);
     }
 
     public WorkspacePage workspace() {
