@@ -1,32 +1,31 @@
 package pivotal.guitest;
 
-import core.selenium.WebDriverManager;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import core.selenium.utils.WebDriverManager;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import pivotal.config.Environment;
-import pivotal.ui.DashboardPage;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import pivotal.config.EnvironmentPivotal;
+import pivotal.ui.login.DashboardPage;
 import pivotal.ui.InitialPage;
-import pivotal.ui.LoginPage;
-import pivotal.ui.LoginPage2;
+import pivotal.ui.login.LoginPageStep1;
+import pivotal.ui.login.LoginPageStep2;
 
 public class LoginTest {
     private InitialPage initialPage;
-    private LoginPage loginPage;
-    private LoginPage2 loginPage2;
+    private LoginPageStep1 loginPageStep1;
+    private LoginPageStep2 loginPageStep2;
     private DashboardPage dashboardPage;
 
     private WebDriverManager webDriverManager;
-    private String email = Environment.getInstance().getEmail();
-    private String password = Environment.getInstance().getPassword();
-    private String baseUrl=Environment.getInstance().getBaseUrl();
+    private String baseUrl= EnvironmentPivotal.getInstance().getBaseUrl();
+
 
     @Before
     public void setUp() throws Exception {
-        webDriverManager = new WebDriverManager();
+        webDriverManager.getWebDriver();
         webDriverManager.getWebDriver().get(baseUrl);
     }
 
@@ -37,10 +36,11 @@ public class LoginTest {
 
     @Test
     public void login() {
-        initialPage = new InitialPage(webDriverManager.getWebDriver(), webDriverManager.getDriverWait());
-        loginPage = initialPage.navigateLogin();
-        loginPage2 = loginPage.navigateLoginNext(email);
-        dashboardPage = loginPage2.login(password);
+        initialPage = new InitialPage();
+        loginPageStep1 = initialPage.navigateLogin();
+        loginPageStep2 = loginPageStep1.navigateLoginNext();
+        loginPageStep2.login();
+        dashboardPage = loginPageStep2.navigateToDashboardPage();
         WebElement actual = dashboardPage.getProfileDropDown();
         WebElement expected = webDriverManager.getWebDriver().findElement(By.xpath("//button[contains(text(),'cs528074')]"));
         Assert.assertEquals(actual, expected);

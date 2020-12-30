@@ -1,10 +1,8 @@
-package pivotal.ui;
+package pivotal.ui.project;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import pivotal.ui.BasePage;
 
 public class DeleteProjectPage extends BasePage {
 
@@ -14,13 +12,16 @@ public class DeleteProjectPage extends BasePage {
     @FindBy(id = "confirm_delete")
     private WebElement deleteProjectBtn;
 
-    public DeleteProjectPage(final WebDriver webDriver, final WebDriverWait webDriverWait) {
-        super(webDriver, webDriverWait);
+    /**
+     * Constructor for DeleteProjectPage.
+     */
+    public DeleteProjectPage() {
+        //super(webDriver, webDriverWait);
     }
 
     private void scrollDownToFindDeleteProjectLink() {
-        JavascriptExecutor js = (JavascriptExecutor) super.webDriver;
-        js.executeScript("arguments[0].scrollIntoView();", this.deleteProjectLink);
+        //JavascriptExecutor js = (JavascriptExecutor) super.webDriver;
+        //js.executeScript("arguments[0].scrollIntoView();", this.deleteProjectLink);
     }
 
     private void clickDeleteLink() {
@@ -31,6 +32,9 @@ public class DeleteProjectPage extends BasePage {
         this.deleteProjectBtn.click();
     }
 
+    /**
+     * Delete project.
+     */
     public void deleteProject() {
         scrollDownToFindDeleteProjectLink();
         clickDeleteLink();

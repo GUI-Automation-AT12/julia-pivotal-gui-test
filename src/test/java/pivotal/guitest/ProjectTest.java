@@ -1,27 +1,23 @@
 package pivotal.guitest;
 
-import core.selenium.WebDriverManager;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import pivotal.config.Environment;
-import pivotal.ui.*;
-
-import java.util.Date;
-import static org.junit.Assert.*;
+import pivotal.ui.InitialPage;
+import pivotal.ui.login.DashboardPage;
+import pivotal.ui.login.LoginPageStep1;
+import pivotal.ui.login.LoginPageStep2;
+import pivotal.ui.project.CreateProjectPage;
+import pivotal.ui.project.ProjectPage;
 
 public class ProjectTest {
 
     private InitialPage initialPage;
-    private LoginPage loginPage;
-    private LoginPage2 loginPage2;
+    private LoginPageStep1 loginPageStep1;
+    private LoginPageStep2 loginPageStep2;
     private DashboardPage dashboardPage;
 
     private CreateProjectPage createProjectPage;
     private ProjectPage projectPage;
 
-    private WebDriverManager webDriverManager;
+   /** private WebDriverManager webDriverManager;
     private String email = Environment.getInstance().getEmail();
     private String password = Environment.getInstance().getPassword();
     private String baseUrl=Environment.getInstance().getBaseUrl();
@@ -56,5 +52,5 @@ public class ProjectTest {
         actual = webDriverManager.getWebDriver().findElement(By.cssSelector(".raw_context_name")).getText();
         assertEquals(nameProject, actual);
         dashboardPage = projectPage.goDashboard();
-    }
+    }**/
 }

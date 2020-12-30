@@ -1,9 +1,8 @@
-package pivotal.ui;
+package pivotal.ui.project;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import pivotal.ui.BasePage;
 
 public class CreateProjectPage extends BasePage {
 
@@ -19,16 +18,23 @@ public class CreateProjectPage extends BasePage {
     @FindBy(css = ".pvXpn__Button--positive")
     private WebElement createProjectBtn;
 
-    public CreateProjectPage(final WebDriver webDriver, final WebDriverWait webDriverWait) {
-        super(webDriver, webDriverWait);
+    /**
+     * Constructor for create project page.
+     */
+    public CreateProjectPage() {
     }
 
+    /**
+     * Navigate to project page.
+     * @param projectName
+     * @return ProjectPage
+     */
     public ProjectPage createProject(final String projectName) {
         fillTextBox(projectName);
         clickAccountDropdown();
         selectAccountOption();
         clickCreateProjectBtn();
-        return new ProjectPage(webDriver, webDriverWait);
+        return new ProjectPage();
     }
 
     private void fillTextBox(final String projectName) {

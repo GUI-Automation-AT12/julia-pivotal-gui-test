@@ -1,9 +1,10 @@
-package pivotal.ui;
+package pivotal.ui.login;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import pivotal.ui.BasePage;
+import pivotal.ui.project.CreateProjectPage;
+import pivotal.ui.project.DeleteProjectPage;
 
 public class DashboardPage extends BasePage {
 
@@ -25,35 +26,51 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "//div[@class='projects column'][1]/a")
     private WebElement projectNameLabel;
 
-    public DashboardPage(final WebDriver webDriver, final WebDriverWait webDriverWait) {
-        super(webDriver, webDriverWait);
+    /**
+     * constructor of DashboardPage.
+     */
+    public DashboardPage() {
+
     }
 
+    /**
+     * creates a project.
+     * @return create project page
+     */
     public CreateProjectPage createProject() {
         createProjectBtn.click();
-        return  new CreateProjectPage(webDriver, webDriverWait);
+        return  null;
     }
 
-    public WorkspacePage workspace() {
-        labelProject.click();
-        return new WorkspacePage(webDriver, webDriverWait);
-    }
-
+    /**
+     * gets web element.
+     * @return Web element
+     */
     public WebElement getProfileDropDown() {
         return profileDropDown;
     }
 
+    /**
+     * delete a project.
+     */
     private void clickDeleteProjectLink() {
         this.deleteProjectLink.click();
-
     }
 
-    public String getNameProject () {
+    /**
+     * gets project name.
+     * @return project name
+     */
+    public String getNameProject() {
         return this.projectNameLabel.getText();
     }
 
+    /**
+     * delete a project.
+     * @return delete project page
+     */
     public DeleteProjectPage goDeleteProjectPage() {
         clickDeleteProjectLink();
-        return new DeleteProjectPage(webDriver, webDriverWait);
+        return null;
     }
 }
