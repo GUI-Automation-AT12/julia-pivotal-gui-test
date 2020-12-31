@@ -18,6 +18,8 @@ dependencies {
     testImplementation group: 'io.cucumber', name: 'cucumber-java', version: '6.0.0'
     testImplementation group: 'io.cucumber', name: 'cucumber-testng', version: '6.0.0'
     testImplementation group: 'io.cucumber', name: 'cucumber-picocontainer', version: '6.0.0'
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    compile group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '3.8.0'
 }
 
 configurations {
@@ -42,8 +44,6 @@ task executeBDDTests(type: Test) {
         jvmArgs = ['-DimplicitTime=60']
         jvmArgs = ['-DexplicitTime=80']
         jvmArgs = ['-Dbaseurl=' + baseUrl]
-        jvmArgs = ['-Dusername=' + email]
-        jvmArgs = ['-Dpassword=' + password]
     }
     testLogging.showStandardStreams = true
     scanForTestClasses = false

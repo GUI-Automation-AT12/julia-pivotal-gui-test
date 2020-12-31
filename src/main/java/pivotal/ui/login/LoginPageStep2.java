@@ -3,7 +3,6 @@ package pivotal.ui.login;
 import core.selenium.utils.WebDriverHelper;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pivotal.config.EnvironmentPivotal;
 import pivotal.ui.BasePage;
 
 public class LoginPageStep2 extends BasePage {
@@ -15,27 +14,20 @@ public class LoginPageStep2 extends BasePage {
     private WebElement signInBtn;
 
     /**
-     * Constructor for login page step2.
+     * Fills the password and log a user in Pivotal Tracker.
+     * @param password
+     * @return a new DashboardPage.
      */
-    public LoginPageStep2() {
-        WebDriverHelper.waitUntil(signInBtn);
-    }
-
-    /**
-     * gets dashboard page or home page.
-     * @return new page
-     */
-    public DashboardPage navigateToDashboardPage() {
+    public DashboardPage login(final String password) {
+        setPassword(password);
+        clickSignInBtn();
         return new DashboardPage();
     }
 
     /**
-     * Method to login with username or email.
+     * Clicking signIn btn.
      */
-    public void login() {
-        String password = EnvironmentPivotal.getInstance().getPassword();
-        WebDriverHelper.waitUntil(signInBtn);
-        setPassword(password);
+    private void clickSignInBtn() {
         WebDriverHelper.clickElement(signInBtn);
     }
 

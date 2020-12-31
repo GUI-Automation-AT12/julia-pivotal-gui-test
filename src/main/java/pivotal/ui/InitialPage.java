@@ -10,18 +10,18 @@ public class InitialPage extends BasePage {
     private WebElement loginBtn;
 
     /**
-     * constructor for initial page.
-     */
-    public InitialPage() {
-        WebDriverHelper.waitUntil(loginBtn);
-    }
-
-    /**
      * navigates to login page 1.
      * @return login page 1
      */
     public LoginPageStep1 navigateLogin() {
-        loginBtn.click();
+        clickLogInLink();
         return new LoginPageStep1();
+    }
+
+    /**
+     * Clicking in loginBtn.
+     */
+    private void clickLogInLink() {
+        WebDriverHelper.clickElement(loginBtn);
     }
 }

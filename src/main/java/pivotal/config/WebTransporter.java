@@ -18,11 +18,13 @@ public final class WebTransporter {
 
     }
     /**
-     * Navigate to URL base.
+     * Navigates to initial page of Pivotal Tracker website.
+     * @throws MalformedURLException
      */
-    public static void navigateToPage() {
+    public static void navigateToPage() throws MalformedURLException {
         navigateToUrl(EnvironmentPivotal.getInstance().getBaseUrl());
     }
+
     /**
      * Navigate to URL.
      * @param pageName

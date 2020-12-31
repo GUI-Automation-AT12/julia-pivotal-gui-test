@@ -4,7 +4,9 @@ Feature: Login for pivotal
 
   Scenario: I am trying login with the valid credentials
     Given I am on the login page
-    When  I set email and password
+    When  I set email and password with following information
+      | Email   |cs528074@gmail.com|
+      | Password|12abc345          |
     Then  I should view the "dashboard" suffix in the URL
 
   Scenario: I am trying login with the wrong credentials

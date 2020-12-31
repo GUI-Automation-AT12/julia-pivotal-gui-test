@@ -1,0 +1,22 @@
+[
+  {
+    "user": {
+      "Alias": "Editable User",
+      "Email": "cs528074@gmail.com",
+      "Password": "12abc345",
+      "User name": "userNotEdited",
+      "Name": "User Not Edited",
+      "Initials": "UNE"
+    }
+  },
+  {
+    "user": {
+      "Alias": "Standard User",
+      "Email": "cs528074@gmail.com",
+      "Password": "12abc345",
+      "User name": "standardUser",
+      "Name": "Standard User",
+      "Initials": "SU"
+    }
+  }
+]

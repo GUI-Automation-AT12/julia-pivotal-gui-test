@@ -7,28 +7,45 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
+import pivotal.config.WebTransporter;
+import pivotal.context.UserContext;
+import pivotal.entities.User;
 import pivotal.ui.InitialPage;
 import pivotal.ui.login.LoginPageStep1;
 import pivotal.ui.login.LoginPageStep2;
 
+import java.net.MalformedURLException;
+import java.util.Map;
+
 public class LoginStepdefs {
+    UserContext userContext;
 
     private InitialPage initialPage;
     private LoginPageStep1 loginPageStep1;
     private LoginPageStep2 loginPageStep2;
+    /**
+     * Adding Dependency injection to share Default Users information.
+     * @param sharedUserContext
+     */
+    public LoginStepdefs(final UserContext sharedUserContext) {
+        this.userContext = sharedUserContext;
+    }
 
     @Given("I am on the login page")
-    public void iAmOnTheLoginPage() {
+    public void iAmOnTheLoginPage() throws MalformedURLException {
         initialPage = new InitialPage();
+        WebTransporter.navigateToPage();
         initialPage.navigateLogin();
     }
 
-    @When("I set email and password")
-    public void iSetEmailAndPassword() {
-        loginPageStep1.login();
-        loginPageStep1.navigateLoginNext();
-        loginPageStep2.login();
-        loginPageStep2.navigateToDashboardPage();
+    @When("I set email and password with following information")
+    public void iSetEmailAndPassword(final Map<String, String> userInformation) {
+        User user = new User();
+        user.processInformation(userInformation);
+        userContext.addUser(user);
+        loginPageStep1 = initialPage.navigateLogin();
+        loginPageStep2 = loginPageStep1.goToLoginPageStep2(user.getEmail());
+        loginPageStep2.login(user.getPassword());
     }
 
     @Then("I should view the {string} suffix in the URL")
@@ -44,8 +61,9 @@ public class LoginStepdefs {
     /**
      * Closes WebDriverManager instance.
      */
-    @After
+   @After
     public void quit() {
         WebDriverManager.getInstance().quit();
     }
+
 }
