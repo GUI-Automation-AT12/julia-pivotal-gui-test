@@ -35,15 +35,12 @@ public class LoginStepdefs {
     public void iAmOnTheLoginPage() throws MalformedURLException {
         initialPage = new InitialPage();
         WebTransporter.navigateToPage();
-        initialPage.navigateLogin();
+        loginPageStep1 = initialPage.navigateLogin();
     }
 
-    @When("I set email and password with following information")
-    public void iSetEmailAndPassword(final Map<String, String> userInformation) {
-        User user = new User();
-        user.processInformation(userInformation);
-        userContext.addUser(user);
-        loginPageStep1 = initialPage.navigateLogin();
+    @When("I set email and password")
+    public void iSetEmailAndPassword() {
+        User user = userContext.getUSer();
         loginPageStep2 = loginPageStep1.goToLoginPageStep2(user.getEmail());
         loginPageStep2.login(user.getPassword());
     }
@@ -65,5 +62,4 @@ public class LoginStepdefs {
     public void quit() {
         WebDriverManager.getInstance().quit();
     }
-
 }

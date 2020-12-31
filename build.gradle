@@ -1,31 +1,25 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'checkstyle'
+    id "io.qameta.allure" version "2.8.1"
 }
 
-apply plugin: 'java'
-apply plugin: 'checkstyle'
-
-
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 dependencies {
-    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.0'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.0'
-    compile group: 'org.json', name: 'json', version: '20180813'
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
-    testImplementation group: 'io.cucumber', name: 'cucumber-java', version: '6.0.0'
-    testImplementation group: 'io.cucumber', name: 'cucumber-testng', version: '6.0.0'
-    testImplementation group: 'io.cucumber', name: 'cucumber-picocontainer', version: '6.0.0'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.0'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.0'
+    compile group: 'io.cucumber', name: 'cucumber-java', version: '5.7.0'
+    compile group: 'io.cucumber', name: 'cucumber-junit', version: '5.7.0'
+    compile group: 'io.cucumber', name: 'cucumber-testng', version: '5.7.0'
+    compile group: 'io.cucumber', name: 'cucumber-picocontainer', version: '5.7.0'
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     compile group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '3.8.0'
-}
-
-configurations {
-    cucumberRuntime {
-        extendsFrom testImplementation
-    }
+    testImplementation group: 'io.qameta.allure', name: 'allure-cucumber6-jvm', version: '2.13.6'
 }
 
 checkstyle {
@@ -33,24 +27,36 @@ checkstyle {
     configFile = file("${rootProject.rootDir}/config/checkstyle/checkstyle.xml")
 }
 
-task executeBDDTests(type: Test) {
+allure {
+    version = '2.8.1'
+    autoconfigure = true
+    aspectjweaver = true
+    allureJavaVersion = '2.13.6'
+}
+
+task runBDDTests(type: Test) {
     useTestNG()
     options {
         useDefaultListeners = false
+        jvmArgs = ['-Dcucumber.plugin=io.qameta.allure.cucumber6jvm.AllureCucumber6Jvm']
+        jvmArgs = ['-Dcucumber.plugin=rerun:build/target/rerun.txt']
         jvmArgs = ['-Dcucumber.filter.tags=' + filterTags]
         jvmArgs = ['-DcucumberThreadCount=' + cucumberThreadCount]
-        jvmArgs = ['-Dbrowser=chrome']
-        jvmArgs = ['-DdriveChromePath=driver/chromedriver']
-        jvmArgs = ['-DimplicitTime=60']
-        jvmArgs = ['-DexplicitTime=80']
-        jvmArgs = ['-Dbaseurl=' + baseUrl]
     }
     testLogging.showStandardStreams = true
     scanForTestClasses = false
+    finalizedBy 'allureReport'
 }
 
-test {
-    testLogging {
-        showStandardStreams = true
+task reRunBDDTests(type: Test) {
+    useTestNG()
+    options {
+        useDefaultListeners = false
+        jvmArgs = ['-Dcucumber.plugin=io.qameta.allure.cucumber6jvm.AllureCucumber6Jvm']
+        jvmArgs = ['-Dcucumber.plugin=rerun:build/target/rerun.txt']
+        jvmArgs = ['-DcucumberThreadCount=' + cucumberThreadCount]
     }
+    testLogging.showStandardStreams = true
+    scanForTestClasses = false
+    finalizedBy 'allureReport'
 }

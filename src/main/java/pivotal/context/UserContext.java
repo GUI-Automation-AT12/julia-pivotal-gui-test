@@ -19,7 +19,14 @@ public class UserContext {
     }
 
     /**
-     * Get the List of Edited Users.
+     * Gets user.
+     * @return first user.
+     */
+    public User getUSer() {
+        return usersList.get(0);
+    }
+    /**
+     * Gets the List of Edited Users.
      * @return editedUsersList
      */
     public List<String> getEditedUsersList() {

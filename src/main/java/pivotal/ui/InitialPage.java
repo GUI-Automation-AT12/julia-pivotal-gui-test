@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import pivotal.ui.login.LoginPageStep1;
 
 public class InitialPage extends BasePage {
-    @FindBy(xpath = "//a[@tabindex='1']")
+    @FindBy(linkText = "Log in")
     private WebElement loginBtn;
 
     /**
@@ -14,6 +14,7 @@ public class InitialPage extends BasePage {
      * @return login page 1
      */
     public LoginPageStep1 navigateLogin() {
+        //WebDriverHelper.waitUntil(loginBtn);
         clickLogInLink();
         return new LoginPageStep1();
     }
@@ -22,6 +23,6 @@ public class InitialPage extends BasePage {
      * Clicking in loginBtn.
      */
     private void clickLogInLink() {
-        WebDriverHelper.clickElement(loginBtn);
+       WebDriverHelper.clickElement(loginBtn);
     }
 }

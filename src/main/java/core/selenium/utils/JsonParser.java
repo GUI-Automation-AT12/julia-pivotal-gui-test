@@ -1,6 +1,6 @@
 package core.selenium.utils;
 
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 import pivotal.entities.User;
 
 import java.util.ArrayList;
@@ -23,7 +23,8 @@ public final class JsonParser {
         if (userList == null) {
             userList = new ArrayList<>();
             for (Object obj : JsonFilesReader.jsonArrayFromJsonFile("src/test/resources/JsonFiles/DefaultUsers.json")) {
-                JSONObject jsonObj = (JSONObject) ((JSONObject) obj).get("user");
+                org.json.simple.JSONObject jsonObj = (org.json.simple.JSONObject)
+                        ((org.json.simple.JSONObject) obj).get("user");
                 Map<String, String> userInformation = new HashMap<>();
                 userInformation.put("Alias", (String) jsonObj.get("Alias"));
                 userInformation.put("Email", (String) jsonObj.get("Email"));
@@ -48,7 +49,7 @@ public final class JsonParser {
             driverPropertiesList = new ArrayList<>();
             for (Object obj : JsonFilesReader.
                     jsonArrayFromJsonFile("src/test/resources/JsonFiles/DriverProperties.json")) {
-                JSONObject jsonObj = (JSONObject) ((JSONObject) obj).get("webDriver");
+                org.json.simple.JSONObject jsonObj = (org.json.simple.JSONObject) ((JSONObject) obj).get("webDriver");
                 Map<String, String> webDriverInfo = new HashMap<>();
                 webDriverInfo.put("name", jsonObj.get("name").toString());
                 webDriverInfo.put("implicitWaitingSeconds", jsonObj.get("implicitWaitingSeconds").toString());
